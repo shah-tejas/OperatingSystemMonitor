@@ -92,7 +92,7 @@ public class CPUUsageService {
                     }
                 }
 
-                double cpuUsage = (diffSum / Math.pow(10, 7));
+                double cpuUsage = (diffSum / Math.pow(10, 6));
                 long timestamp = Instant.now().toEpochMilli();
 
                 saveCPUUsage(timestamp, cpuUsage);
