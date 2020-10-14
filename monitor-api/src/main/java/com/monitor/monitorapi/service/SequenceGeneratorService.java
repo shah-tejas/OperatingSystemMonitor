@@ -1,6 +1,7 @@
 package com.monitor.monitorapi.service;
 
 import com.monitor.monitorapi.model.DatabaseSequence;
+import com.monitor.monitorapi.repository.DatabaseSequenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
@@ -22,6 +23,9 @@ public class SequenceGeneratorService {
         this.mongoOperations = mongoOperations;
     }
 
+    @Autowired
+    DatabaseSequenceRepository databaseSequenceRepository;
+
     public long generateSequence(String seqName) {
 
         DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
@@ -29,5 +33,9 @@ public class SequenceGeneratorService {
                 DatabaseSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
 
+    }
+
+    public void deleteAllRecords(){
+        databaseSequenceRepository.deleteAll();
     }
 }

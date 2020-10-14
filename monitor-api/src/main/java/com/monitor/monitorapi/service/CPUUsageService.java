@@ -1,9 +1,13 @@
 package com.monitor.monitorapi.service;
 
 import com.monitor.monitorapi.model.CPUUsage;
+import com.monitor.monitorapi.model.MemoryUsage;
 import com.monitor.monitorapi.repository.CPUUsageRepository;
 import com.monitor.monitorapi.util.MonitorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +35,7 @@ public class CPUUsageService {
 
     public void deleteOldRecords() {
         cpuUsageRepository.deleteAll();
+        sequenceGeneratorService.deleteAllRecords();
     }
 
     public void startMonitoring() {
@@ -45,8 +50,9 @@ public class CPUUsageService {
         memoryUsageService.saveMemoryUsage(timestamp, percent);
     }
 
-    public void deleteOldMemoryUsageRecords(){
-        memoryUsageService.deleteOldRecords();
+    public List<CPUUsage> getLatestRecords() {
+        Pageable sortedByTimestamp = PageRequest.of(0, 60, Sort.by("timestamp").descending());
+        return cpuUsageRepository.findAll(sortedByTimestamp).getContent();
     }
 
     public class CPUMonitor extends Thread {
