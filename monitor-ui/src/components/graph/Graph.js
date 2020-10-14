@@ -17,7 +17,7 @@ const Graph = ({ values }) => {
     }, [values]);
 
     return (
-        <div>
+        <div className="chart-container">
             { data.length > 1
                 && (
                     <Chart

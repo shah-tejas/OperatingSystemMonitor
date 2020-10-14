@@ -59,7 +59,7 @@ public class CPUUsageService {
 
         public void run() {
 
-            System.out.println("Starting CPU Monitor...");
+//            System.out.println("Starting CPU Monitor...");
             deleteOldRecords();
 
             Map<Long, Long> threadMap = new HashMap<>();
@@ -106,14 +106,14 @@ public class CPUUsageService {
                 threadIds = new ArrayList<>(threadMap.keySet());
             }
 
-            System.out.println("CPU Monitor done");
+//            System.out.println("CPU Monitor done");
         }
     }
 
     public class MemoryUsage extends Thread {
 
         public void run() {
-            System.out.println("Starting Memory Monitor...");
+//            System.out.println("Starting Memory Monitor...");
             memoryUsageService.deleteOldRecords();
 
             MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
@@ -132,7 +132,7 @@ public class CPUUsageService {
 
             }
 
-            System.out.println("Memory Monitor stopped");
+//            System.out.println("Memory Monitor stopped");
         }
     }
 
