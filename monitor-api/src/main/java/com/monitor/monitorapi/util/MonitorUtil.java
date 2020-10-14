@@ -4,8 +4,7 @@ public class MonitorUtil {
     private boolean runMonitor;
     private static MonitorUtil monitorUtil = null;
 
-    private MonitorUtil() {
-    }
+    private MonitorUtil() {}
 
     public static MonitorUtil getInstance() {
         if(monitorUtil == null) {
@@ -25,4 +24,5 @@ public class MonitorUtil {
     public boolean checkMonitorStatus() {
         return runMonitor;
     }
+
 }
